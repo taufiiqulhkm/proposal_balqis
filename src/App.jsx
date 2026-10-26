@@ -4,24 +4,11 @@ import { proposalConfig } from './config';
 
 export default function App() {
   const [status, setStatus] = useState('precheck'); // 'precheck' | 'single' | 'taken'
-  const [isPlaying, setIsPlaying] = useState(false);
   const [noCount, setNoCount] = useState(0);
   const [noBtnOffset, setNoBtnOffset] = useState({ x: 0, y: 0 });
   const [showModal, setShowModal] = useState(false);
 
-  const audioRef = useRef(null);
   const canvasRef = useRef(null);
-
-  // Background audio control
-  const toggleMusic = () => {
-    if (!audioRef.current) return;
-    if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      audioRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
-    }
-  };
 
   // Runaway button for 'No'
   const handleNoInteraction = (e) => {
@@ -133,17 +120,6 @@ export default function App() {
       <div className="ambient-light ambient-2" />
       <div className="ambient-light ambient-3" />
       <canvas ref={canvasRef} id="canvas-particles" />
-
-      {/* Floating Music Button */}
-      <audio ref={audioRef} src={proposalConfig.music.audioSrc} loop />
-      <button className="music-toggle-btn" onClick={toggleMusic} title="Putar / Jeda Musik">
-        <div className={`music-wave ${!isPlaying ? 'paused' : ''}`}>
-          <span />
-          <span />
-          <span />
-        </div>
-        <span>{isPlaying ? `${proposalConfig.music.title} - ${proposalConfig.music.artist}` : 'Putar Musik 🎵'}</span>
-      </button>
 
       {/* Main Container */}
       <main className="container">
