@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Question from My Heart ✨</title>
+  <meta name="description" content="A sincere, purpose-driven proposal to walk together towards a future blessed with love and marriage.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient Light Backdrops -->
+  <div class="ambient-light ambient-1"></div>
+  <div class="ambient-light ambient-2"></div>
+  <div class="ambient-light ambient-3"></div>
+
+  <!-- Ambient Particles -->
+  <canvas id="canvas-particles"></canvas>
+
+  <!-- Floating Audio Player -->
+  <audio id="bg-music" loop></audio>
+  <div class="music-toggle-btn" id="music-toggle" title="Klik untuk putar/jeda lagu">
+    <div class="music-wave paused">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <span id="music-label">Putar Musik 🎵</span>
+  </div>
+
+  <!-- Main Container -->
+  <main class="container">
+    
+    <!-- Step 1: Pre-Check Gate (Cek Status Dulu) -->
+    <section class="glass-card precheck-card" id="precheck-section">
+      <div class="hero-badge">Quick Question Dulu Nih ✌️</div>
+      <h1 class="precheck-title">Haloo, <span id="her-name-hero">Balqis</span>!</h1>
+      <p class="precheck-desc">
+        Sebelum lanjut baca yang udah aku siapin, aku mau nanya santai dulu nih biar sama-sama enak dan ga salah tempat hehe.
+      </p>
+
+      <div class="status-question-box">
+        <h3>Sekarang kamu lagi deket sama seseorang atau lagi sendiri nih? Hehe</h3>
+        <p class="status-hint">Jawab santai aja yaa, no pressure sama sekali! :D</p>
+
+        <div class="status-buttons">
+          <button class="status-btn btn-single" id="btn-status-single">
+            <span class="btn-icon">✨</span>
+            <div class="btn-content">
+              <strong>Lagi sendiri kok haha</strong>
+              <small>Lagi santuy & free kok</small>
+            </div>
+          </button>
+
+          <button class="status-btn btn-taken" id="btn-status-taken">
+            <span class="btn-icon">🙈</span>
+            <div class="btn-content">
+              <strong>Lagi deket sama seseorang</strong>
+              <small>Udah ada yang nemenin</small>
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Branch A: Kalau Taken / Ada Cowok (Respon Sopan tapi Santuy) -->
+    <section class="glass-card taken-response-card" id="taken-response-section" style="display: none;">
+      <div class="modal-icon">🙌</div>
+      <h2 class="taken-title">Aman banget, Balqis!</h2>
+      <p class="taken-desc">
+        Makasih yaa udah jujur dan mau sempetin buka link ini. Respect banget! Langgeng dan lancar terus yaa buat kamu sama cowokmu, have a good day! ✨
+      </p>
+      <div class="taken-signature">— Taufiiq</div>
+      <div style="margin-top: 24px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <a href="#" target="_blank" class="modal-action-btn" id="wa-btn-taken" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);">
+          <span>Kabarin Taufiiq via WhatsApp 💬</span>
+        </a>
+        <button class="modal-action-btn btn-back-precheck" id="btn-back-from-taken" style="background: transparent; border: 1px dashed rgba(255,255,255,0.25); color: var(--text-muted); cursor: pointer;">
+          <span>← Balik ke Pilihan Awal</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Branch B: Kalau Single -> Reveal Proposal Lengkap -->
+    <div id="proposal-full-content" style="display: none;">
+      
+      <!-- Transition Welcome Banner -->
+      <section class="glass-card welcome-banner">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <span class="section-tag" style="margin-bottom: 0;">Alhamdulillah aman wkwk 🙌</span>
+          <button class="btn-back-precheck" id="btn-back-from-single" style="background: transparent; border: none; color: var(--text-muted); font-size: 0.82rem; cursor: pointer; text-decoration: underline;">
+            ← Ubah Jawaban
+          </button>
+        </div>
+        <h2 class="section-title">Syukurlah kalau kosong haha...</h2>
+        <p class="welcome-text">
+          Berarti aku ga salah tempat nih. Nah karena hatimu lagi free, ada sesuatu yang udah aku siapin dan pengen aku obrolin serius tapi santai sama kamu. Scroll pelan-pelan yaa! 👇
+        </p>
+      </section>
+
+    <!-- Timeline / Story Section -->
+    <section class="glass-card" id="story-section">
+      <div class="section-header">
+        <span class="section-tag">Our Journey So Far</span>
+        <h2 class="section-title">Cerita Singkat Kita</h2>
+      </div>
+      <div class="timeline-container">
+        <div class="timeline-line"></div>
+        <div id="timeline-list">
+          <!-- Dynamically populated from config.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Roadmap & Intentions (Date to Marry Pillars) -->
+    <section class="glass-card" id="roadmap-section">
+      <div class="section-header">
+        <span class="section-tag">Vision & Values</span>
+        <h2 class="section-title">Arah & Niat Baik yang Kusiapkan</h2>
+      </div>
+      <div class="roadmap-grid" id="roadmap-grid">
+        <!-- Dynamically populated from config.js -->
+      </div>
+    </section>
+
+    <!-- Personal Sincere Letter -->
+    <section class="glass-card letter-box" id="letter-section">
+      <h3 class="letter-greeting" id="letter-greeting">Hai,</h3>
+      <div id="letter-paragraphs">
+        <!-- Dynamically populated from config.js -->
+      </div>
+      <div class="letter-closing">Dengan segenap niat tulus & doa,</div>
+      <div class="letter-sender" id="sender-name">Taufiiq</div>
+    </section>
+
+    <!-- The Big Question / Proposal Action -->
+    <section class="glass-card proposal-box" id="proposal-action">
+      <h2 class="proposal-question">Would you walk with me into this journey?</h2>
+      <p class="proposal-subtext">
+        Membangun komitmen saling mengenal dengan niat yang jelas menuju pernikahan (Date to Marry).
+      </p>
+
+      <div class="actions-group">
+        <button class="btn btn-yes" id="btn-yes">
+          <span>Yes, I will ❤️</span>
+        </button>
+        <button class="btn btn-no" id="btn-no">
+          <span>Hmm, coba pikir dulu...</span>
+        </button>
+      </div>
+    </section>
+
+    </div> <!-- End of #proposal-full-content -->
+
+  </main>
+
+  <!-- Success Modal -->
+  <div class="modal-overlay" id="success-modal">
+    <div class="modal-card">
+      <div class="modal-icon">💍✨</div>
+      <h3 class="modal-title" id="modal-title">Alhamdulillah!</h3>
+      <p class="modal-text" id="modal-desc"></p>
+      <a href="#" target="_blank" class="modal-action-btn" id="wa-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+        </svg>
+        <span>Kirim Kabar Baik ke WhatsApp</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Config & Logic -->
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
